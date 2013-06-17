@@ -486,6 +486,15 @@ req_filter(struct context *ctx, struct conn *conn, struct msg *msg)
         return true;
     }
 
+    /*
+     * Hanlde "SELECT anything\r\n"
+     *
+     */
+    if (msg->type == MSG_REQ_REDIS_SELECT) {
+    reply(ctx, conn, msg, "+OK\r\n");
+        return true;
+    }
+
     return false;
 }
 
